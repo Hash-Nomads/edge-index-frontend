@@ -3,6 +3,9 @@ import React, { FunctionComponent, useState } from "react";
 import { NAV_PATH } from "../lib/constants";
 import { MenuOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import useSelectWallet from "hooks/useSelectWallet";
+import { useRecoilValue } from "recoil";
+import AuthStore from "store/AuthStore";
 
 type IMenuList = {
   pathName: string;
@@ -23,6 +26,8 @@ const MenuList: FunctionComponent<IMenuList> = ({ pathName }: IMenuList) => {
 
 const NavBar: FunctionComponent = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const selectWallet = useSelectWallet();
+  const loginUser = useRecoilValue(AuthStore.loginUser);
 
   return (
     <nav className="relative flex flex-wrap items-center justify-between py-3 lg:py-10">
@@ -55,7 +60,13 @@ const NavBar: FunctionComponent = () => {
                 <MenuList key={name} pathName={name} />
               ))}
             </ul>
-            <Button type="primary" shape="round" size="large">
+            {console.log({ loginUser })}
+            <Button
+              type="primary"
+              shape="round"
+              size="large"
+              onClick={selectWallet.open}
+            >
               Connect Wallet
             </Button>
           </div>
