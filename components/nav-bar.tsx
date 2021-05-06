@@ -5,18 +5,29 @@ import { MenuOutlined } from "@ant-design/icons";
 import useSelectWallet from "hooks/useSelectWallet";
 import { useRecoilValue } from "recoil";
 import AuthStore from "store/AuthStore";
-import { Button, Menu } from "antd";
+import { Button } from "antd";
+import { useRouter } from "next/router";
 
 type IMenuList = {
   pathName: string;
+  currPath: string;
+  handleClickLink: () => void;
 };
 
-const MenuList: FunctionComponent<IMenuList> = ({ pathName }: IMenuList) => {
+const MenuList: FunctionComponent<IMenuList> = ({
+  pathName,
+  currPath,
+  handleClickLink,
+}: IMenuList) => {
   return (
     <li className="nav-item flex items-center">
       <a
-        className="px-3 py-2 flex items-center text-xl uppercase leading-snug text-gray-600 hover:opacity-75"
-        href="#pablo"
+        className={
+          (`/${pathName.toLowerCase()}` === currPath
+            ? "px-3 py-2 flex items-center text-xl uppercase leading-snug hover:opacity-75 text-blue-500"
+            : "px-3 py-2 flex items-center text-xl uppercase leading-snug hover:opacity-75 text-gray-600")
+        }
+        onClick={handleClickLink}
       >
         {pathName}
       </a>
@@ -25,12 +36,15 @@ const MenuList: FunctionComponent<IMenuList> = ({ pathName }: IMenuList) => {
 };
 
 const NavBar: FunctionComponent = () => {
+  const router = useRouter();
+
   const [navbarOpen, setNavbarOpen] = useState(false);
   const selectWallet = useSelectWallet();
   const loginUser = useRecoilValue(AuthStore.loginUser);
-  const [page, setPage] = useState("");
 
-  const handleClick = () => {};
+  const handleClickLink = (pathName: string) => {
+    router.push(`/${pathName.toLowerCase()}`);
+  };
 
   return (
     <nav className="relative flex flex-wrap items-center justify-between py-3 lg:py-10">
@@ -39,7 +53,7 @@ const NavBar: FunctionComponent = () => {
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <a
               className="text-3xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-gray-700"
-              href="#pablo"
+              href="home"
             >
               Edge Protocol
             </a>
@@ -61,7 +75,12 @@ const NavBar: FunctionComponent = () => {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               {NAV_PATH.map((name, index) => (
-                <MenuList key={name} pathName={name} />
+                <MenuList
+                  key={name}
+                  pathName={name}
+                  currPath={router.pathname}
+                  handleClickLink={() => handleClickLink(name)}
+                />
               ))}
               <li className="ml-3 nav-item flex items-center">
                 {console.log(loginUser)}

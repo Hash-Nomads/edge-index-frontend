@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@metamask/onboarding": "^1.0.0",
     "@terra-money/terra.js": "^1.7.0",
     "antd": "^4.15.4",
     "bignumber.js": "^9.0.1",
