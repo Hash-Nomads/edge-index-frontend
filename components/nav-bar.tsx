@@ -20,7 +20,6 @@ const MenuList: FunctionComponent<IMenuList> = ({ pathName }: IMenuList) => {
       >
         {pathName}
       </a>
-      
     </li>
   );
 };
@@ -52,7 +51,7 @@ const NavBar: FunctionComponent = () => {
               <MenuOutlined style={{ color: "#1d1d1d" }} />
             </button>
           </div>
-          
+
           <div
             className={
               "lg:flex flex-grow items-center" +
@@ -65,20 +64,17 @@ const NavBar: FunctionComponent = () => {
                 <MenuList key={name} pathName={name} />
               ))}
               <li className="ml-3 nav-item flex items-center">
-                <Button type="primary" shape="round" size="large" className="flex flex-col list-none" >
+                {console.log(loginUser)}
+                <Button
+                  type="primary"
+                  shape="round"
+                  size="large"
+                  onClick={selectWallet.open}
+                >
                   Connect Wallet
                 </Button>
               </li>
             </ul>
-            {console.log(loginUser )}
-            <Button
-              type="primary"
-              shape="round"
-              size="large"
-              onClick={selectWallet.open}
-            >
-              Connect Wallet
-            </Button>
           </div>
         </div>
       </Container>
