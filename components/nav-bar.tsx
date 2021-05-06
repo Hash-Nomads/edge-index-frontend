@@ -2,10 +2,10 @@ import Container from "./container";
 import React, { FunctionComponent, useState } from "react";
 import { NAV_PATH } from "../lib/constants";
 import { MenuOutlined } from "@ant-design/icons";
-import { Button } from "antd";
 import useSelectWallet from "hooks/useSelectWallet";
 import { useRecoilValue } from "recoil";
 import AuthStore from "store/AuthStore";
+import { Button, Menu } from "antd";
 
 type IMenuList = {
   pathName: string;
@@ -20,6 +20,7 @@ const MenuList: FunctionComponent<IMenuList> = ({ pathName }: IMenuList) => {
       >
         {pathName}
       </a>
+      
     </li>
   );
 };
@@ -28,6 +29,9 @@ const NavBar: FunctionComponent = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const selectWallet = useSelectWallet();
   const loginUser = useRecoilValue(AuthStore.loginUser);
+  const [page, setPage] = useState("");
+
+  const handleClick = () => {};
 
   return (
     <nav className="relative flex flex-wrap items-center justify-between py-3 lg:py-10">
@@ -48,6 +52,7 @@ const NavBar: FunctionComponent = () => {
               <MenuOutlined style={{ color: "#1d1d1d" }} />
             </button>
           </div>
+          
           <div
             className={
               "lg:flex flex-grow items-center" +
@@ -56,11 +61,16 @@ const NavBar: FunctionComponent = () => {
             id="navbar-danger"
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              {NAV_PATH.map((name) => (
+              {NAV_PATH.map((name, index) => (
                 <MenuList key={name} pathName={name} />
               ))}
+              <li className="ml-3 nav-item flex items-center">
+                <Button type="primary" shape="round" size="large" className="flex flex-col list-none" >
+                  Connect Wallet
+                </Button>
+              </li>
             </ul>
-            {console.log({ loginUser })}
+            {console.log(loginUser )}
             <Button
               type="primary"
               shape="round"
