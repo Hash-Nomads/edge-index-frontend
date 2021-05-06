@@ -8,6 +8,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.6.2",
     "antd": "^4.15.4",
     "classnames": "2.2.6",
     "date-fns": "2.10.0",
