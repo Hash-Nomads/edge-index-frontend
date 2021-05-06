@@ -13,7 +13,7 @@ type Props = {
   slug: string
 }
 
-const PostPreview = ({
+const SectionContent = ({
   title,
   coverImage,
   date,
@@ -40,4 +40,4 @@ const PostPreview = ({
   )
 }
 
-export default PostPreview
+export default SectionContent

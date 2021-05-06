@@ -1,5 +1,5 @@
 import Container from "../components/container";
-import MoreStories from "../components/section";
+import Section from "../components/section";
 import Layout from "../components/layout";
 import Intro from '../components/intro'
 import { getAllPosts } from "../lib/api";
@@ -24,7 +24,7 @@ const Index = ({ allPosts }: Props) => {
         </Head>
         <Container>
           <Intro />
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          {morePosts.length > 0 && <Section posts={morePosts} />}
         </Container>
       </Layout>
     </RecoilRoot>
