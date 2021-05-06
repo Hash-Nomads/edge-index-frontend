@@ -1,11 +1,13 @@
 import Container from "./container";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import { NAV_PATH } from "../lib/constants";
 import { MenuOutlined } from "@ant-design/icons";
 import useSelectWallet from "hooks/useSelectWallet";
 import { useRecoilValue } from "recoil";
 import AuthStore from "store/AuthStore";
-import { Button, Menu } from "antd";
+import { Button, Menu, Dropdown } from "antd";
+import { shortenAddress } from "utils/shortenAddress";
+import useAuth from "hooks/useAuth";
 
 type IMenuList = {
   pathName: string;
@@ -24,11 +26,28 @@ const MenuList: FunctionComponent<IMenuList> = ({ pathName }: IMenuList) => {
   );
 };
 
+const DisconnectWall = (logout:()=>void): JSX.Element => {
+  return (
+    <div
+      className="bg-white px-4 shadow-md rounded-lg py-1 cursor-pointer"
+      onClick={logout}
+    >
+      <p className="my-1">Disconnect</p>
+    </div>
+  );
+};
 const NavBar: FunctionComponent = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const selectWallet = useSelectWallet();
+  const { logout } = useAuth();
   const loginUser = useRecoilValue(AuthStore.loginUser);
   const [page, setPage] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("lastWalletType")) {
+      selectWallet.open();
+    }
+  }, []);
 
   const handleClick = () => {};
 
@@ -64,15 +83,28 @@ const NavBar: FunctionComponent = () => {
                 <MenuList key={name} pathName={name} />
               ))}
               <li className="ml-3 nav-item flex items-center">
-                {console.log(loginUser)}
-                <Button
-                  type="primary"
-                  shape="round"
-                  size="large"
-                  onClick={selectWallet.open}
-                >
-                  Connect Wallet
-                </Button>
+                {loginUser.address.length > 0 ? (
+                  <Dropdown overlay={DisconnectWall(logout)} placement="bottomLeft">
+                    <Button
+                      type="primary"
+                      shape="round"
+                      size="large"
+                      style={{ width: "180px" }}
+                    >
+                      {shortenAddress(loginUser.address)}
+                    </Button>
+                  </Dropdown>
+                ) : (
+                  <Button
+                    type="primary"
+                    shape="round"
+                    size="large"
+                    onClick={selectWallet.open}
+                    style={{ width: "180px" }}
+                  >
+                    Connect Wallet
+                  </Button>
+                )}
               </li>
             </ul>
           </div>
