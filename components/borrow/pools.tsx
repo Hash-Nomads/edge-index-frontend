@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import PoolCard from "./pool-card";
-import { Collapse, Table } from "antd";
+import ExpandedRow from "./expanded-row";
+import { Table } from "antd";
 
 const columns = [
   {
@@ -36,6 +36,7 @@ const columns = [
 const data = [
   {
     key: 1,
+    token: "TECO",
     etf: "Terra Ecosystem ETF",
     assets: ["LUNA", "ANC", "MIR"],
     apy: "203%",
@@ -43,6 +44,7 @@ const data = [
   },
   {
     key: 2,
+    token: "AWP",
     etf: "All weather pool ETF",
     assets: [
       "mIAU",
@@ -63,6 +65,7 @@ const data = [
   },
   {
     key: 3,
+    token: "SAVE",
     etf: "Savings Pool ETF",
     assets: ["aUST", "mIAU", "mSLV"],
     apy: "435%",
@@ -70,6 +73,7 @@ const data = [
   },
   {
     key: 4,
+    token: "IND",
     etf: "Index&ETF Pool ETF",
     assets: ["mQQQ", "mSPY", "aUST"],
     apy: "267%",
@@ -77,6 +81,7 @@ const data = [
   },
   {
     key: 5,
+    token: "RISE",
     etf: "New Rise Pool ETF ",
     assets: ["mCOIN", "mTSLA", "mABNB"],
     apy: "328%",
@@ -84,14 +89,7 @@ const data = [
   },
 ];
 
-const ExpandedRow = () => {
-  return (
-    <PoolCard stakedTokenSymbolDisplay="TECO" stakedTokenSymbols={['LUNA', 'MIR', 'ANC']} earnedToken="TECO" />
-  );
-}
-
 const Pools = () => {
-
   const [expKeys, setExpKeys] = useState(data && data.map(i => i.key));
   const openOrCloseAll = (type: boolean) => {
     type ? setExpKeys([]) : setExpKeys(data && data.map(i => i.key));
@@ -114,7 +112,7 @@ const Pools = () => {
         const newExp: any = b ? [...expKeys, r.key] : expKeys.filter(i => i !== r.key);
         setExpKeys(newExp);
       }}
-      expandedRowRender={record => ExpandedRow()}
+      expandedRowRender={record => <ExpandedRow collecteral={record.token} stakedTokenSymbols={['LUNA', 'MIR', 'ANC']} earnedToken={record.token} />}
       rowKey={record => record.key}
       scroll={{ x: true }}
     />

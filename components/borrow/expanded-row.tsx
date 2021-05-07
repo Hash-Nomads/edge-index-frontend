@@ -2,23 +2,23 @@ import { FunctionComponent } from 'react';
 import Image from 'next/image'
 
 type IProps = {
-  stakedTokenSymbolDisplay: string
+  collecteral: string
   stakedTokenSymbols: Array<string>
   earnedToken: string
 }
 
-const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, stakedTokenSymbols, earnedToken}: IProps) => {
+const ExpandedRow: FunctionComponent<IProps> = ({collecteral, stakedTokenSymbols, earnedToken}: IProps) => {
 
   return (
     <>
-      <div className="p-4 lg:w-1/3 w-full">
+      <div className="w-full">
         <div className="bg-gradient-to-l from-blue-900 to-purple-800 bg-opacity-75 px-8 py-5 rounded-t-2xl overflow-hidden relative flex-col">
           <div className="flex flex-wrap">
             <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
               <span className="text-2xl font-semibold title-font text-white">
                 Earn {earnedToken}
               </span>
-              <span className="mt-1 text-white text-sm">Stake {stakedTokenSymbolDisplay}</span>
+              <span className="mt-1 text-white text-sm">Stake {collecteral}</span>
             </div>
             <div className="flex-grow flex justify-end items-center text-white relative">
               {stakedTokenSymbols.map((symbol, i) =>
@@ -53,4 +53,4 @@ const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, stakedTo
   );
 };
 
-export default PoolCard;
+export default ExpandedRow;

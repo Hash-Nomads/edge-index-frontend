@@ -1,13 +1,13 @@
 import { FunctionComponent } from 'react';
+import { ETF } from 'lib/constants';
 import Image from 'next/image'
 
 type IProps = {
   stakedTokenSymbolDisplay: string
-  stakedTokenSymbols: Array<string>
   earnedToken: string
 }
 
-const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, stakedTokenSymbols, earnedToken}: IProps) => {
+const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, earnedToken}: IProps) => {
 
   return (
     <>
@@ -21,7 +21,7 @@ const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, stakedTo
               <span className="mt-1 text-white text-sm">Stake {stakedTokenSymbolDisplay}</span>
             </div>
             <div className="flex-grow flex justify-end items-center text-white relative">
-              {stakedTokenSymbols.map((symbol, i) =>
+              {ETF[stakedTokenSymbolDisplay].map((symbol, i) =>
                 <div key={symbol} style={{right: `${i*2}rem`}} className="absolute">
                   <Image src={`/assets/tokens/${symbol}.png`} alt="" width="52" height="52" />
                 </div>
