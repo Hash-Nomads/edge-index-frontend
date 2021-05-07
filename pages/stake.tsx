@@ -1,6 +1,7 @@
 import Container from "../components/container";
 import Layout from "../components/layout";
-import Intro from '../components/intro'
+import Header from 'components/stake/header'
+import Pools from 'components/stake/pools'
 import Head from "next/head";
 import { CMS_NAME } from "../lib/constants";
 import "antd/dist/antd.css";
@@ -15,7 +16,8 @@ const Stake = () => {
           <title>Next.js Blog Example with {CMS_NAME}</title>
         </Head>
         <Container>
-          <Intro />
+          <Header />
+          <Pools />
         </Container>
       </Layout>
     </RecoilRoot>
