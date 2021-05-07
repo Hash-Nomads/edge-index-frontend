@@ -6,18 +6,33 @@ import { Progress } from "antd";
 import { Table, Tag, Space } from "antd";
 import { Button, Dropdown } from "antd";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const columns = [
   {
     title: "Token",
     dataIndex: "name",
     key: "name",
+    render: (name: string) => (
+      <Image
+        src={`/assets/tokens/${name.toUpperCase()}.png`}
+        alt="ANC"
+        width="24"
+        height="24"
+        />
+    ),
   },
   {
     title: "Allocation",
     dataIndex: "allocation",
     key: "allocation",
-    render: (perc: number) => <Progress percent={perc} />,
+    render: (perc: number) => <div style={{width:"300px"}}>
+      <Progress percent={perc}  width={100}
+      strokeColor={{
+        '0%': '#87d068',
+        '100%': '#108ee9',
+      }}/>
+    </div>,
   },
   {
     title: "Price",
@@ -36,19 +51,19 @@ const data = [
   {
     name: "Luna",
     allocation: 50,
-    price: "16.95",
+    price: "16.84",
     APY: "NONE",
   },
   {
     name: "ANC",
     allocation: 25,
-    price: "5.60",
+    price: "0.06",
     APY: "NONE",
   },
   {
     name: "MIR",
     allocation: 50,
-    price: "10.36",
+    price: "1.31",
     APY: "NONE",
   },
 ];
