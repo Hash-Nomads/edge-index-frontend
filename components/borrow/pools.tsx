@@ -112,7 +112,7 @@ const Pools = () => {
         const newExp: any = b ? [...expKeys, r.key] : expKeys.filter(i => i !== r.key);
         setExpKeys(newExp);
       }}
-      expandedRowRender={record => <ExpandedRow collecteral={record.token} stakedTokenSymbols={['LUNA', 'MIR', 'ANC']} earnedToken={record.token} />}
+      expandedRowRender={record => <ExpandedRow collecteral={record.token} />}
       rowKey={record => record.key}
       scroll={{ x: true }}
     />
