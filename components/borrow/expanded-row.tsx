@@ -22,7 +22,7 @@ const ExpandedRow: FunctionComponent<IProps> = ({
 }: IProps) => {
   return (
     <>
-      <div className="bg-gradient-to-l from-blue-900 to-purple-800 bg-opacity-75 px-8 py-5 mb-20 overflow-hidden relative flex-col">
+      <div className="bg-gradient-to-l from-blue-900 to-purple-800 bg-opacity-75 px-8 py-5 overflow-hidden relative flex-col">
         <div className="flex flex-wrap">
           <Image
             src={`/assets/tokens/${collecteral}.png`}
