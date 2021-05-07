@@ -2,13 +2,13 @@ import Container from "./container";
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { NAV_PATH } from "../lib/constants";
 import { MenuOutlined } from "@ant-design/icons";
-import useSelectWallet from "hooks/useSelectWallet";
+import useSelectWallet from "../hooks/useSelectWallet";
 import { useRecoilValue } from "recoil";
-import AuthStore from "store/AuthStore";
+import AuthStore from "../store/AuthStore";
 import { Button, Dropdown } from "antd";
 import { useRouter } from "next/router";
-import { shortenAddress } from "utils/shortenAddress";
-import useAuth from "hooks/useAuth";
+import { shortenAddress } from "../utils/shortenAddress";
+import useAuth from "../hooks/useAuth";
 
 type IMenuList = {
   pathName: string;
