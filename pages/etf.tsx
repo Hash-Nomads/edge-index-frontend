@@ -6,13 +6,40 @@ import Head from "next/head";
 import { CMS_NAME } from "../lib/constants";
 import Post from "../types/post";
 import "antd/dist/antd.css";
-import {Coin, Wallet, LCDClient} from '@terra-money/terra.js'
+import { Coin, Wallet, LCDClient, Key, MsgSend } from "@terra-money/terra.js";
+import AuthStore from "../store/AuthStore";
+import { useRecoilValue } from "recoil";
 
 const ETF = () => {
   const terra = new LCDClient({
-    URL: 'https://tequila-lcd.terra.dev:80',
-    chainID: 'tequila-0004',
+    URL: "http://3.35.148.111:26657",
+    chainID: "tequila-0004",
   });
+  const loginUser = useRecoilValue(AuthStore.loginUser);
+  const wallet = terra.wallet(loginUser);
+
+  const send = new MsgSend(
+    "terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v",
+    "terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp",
+    { uluna: 1000000 }
+  );
+
+  const handleClick = () => {
+    try {
+      wallet
+      .createAndSignTx({
+        msgs: [send],
+        memo: 'hello'
+      })
+      .then((tx) => terra.tx.broadcast(tx))
+      .then((result) => {
+        console.log(`TX hash: ${result.txhash}`);
+      });
+    } catch (error) {
+      console.log({error});
+      
+    }
+  };
 
   return (
     <Layout>
@@ -22,6 +49,7 @@ const ETF = () => {
       <Container>
         <Intro />
         <EdgeIndexTable />
+        <button onClick={handleClick}>Fuck</button>
       </Container>
     </Layout>
   );
