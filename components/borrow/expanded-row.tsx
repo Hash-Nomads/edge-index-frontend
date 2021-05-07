@@ -78,7 +78,7 @@ const ExpandedRow: FunctionComponent<IProps> = ({
           0.0 {collecteral}
         </h1>
         <button className="text-white bg-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg h-10">
-          Harvest
+          Borrow
         </button>
       </div>
     </>

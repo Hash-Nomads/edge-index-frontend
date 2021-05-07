@@ -1,13 +1,29 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from "react";
+import Image from "next/image";
+import { Fragment, useRef, useEffect, useState } from "react";
+import MintRedeemModal from "./../../components/mintRedeemModal";
 import { ETF } from 'lib/constants';
-import Image from 'next/image'
 
 type IProps = {
-  stakedTokenSymbolDisplay: string
-  earnedToken: string
-}
+  stakedTokenSymbolDisplay: string;
+  earnedToken: string;
+};
 
-const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, earnedToken}: IProps) => {
+const PoolCard: FunctionComponent<IProps> = ({
+  stakedTokenSymbolDisplay,
+  earnedToken,
+}: IProps) => {
+  const [modalMode, setModalMode] = useState("");
+  const cancelButtonRef = useRef();
+  const [deposited, setDeposited] = useState(0);
+
+  function closeModal() {
+    setModalMode("");
+  }
+
+  function openModal(val: "deposit" | "withdraw") {
+    setModalMode(val);
+  }
 
   return (
     <>
@@ -18,7 +34,9 @@ const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, earnedTo
               <span className="text-2xl font-semibold title-font text-white">
                 Earn {earnedToken}
               </span>
-              <span className="mt-1 text-white text-sm">Stake {stakedTokenSymbolDisplay}</span>
+              <span className="mt-1 text-white text-sm">
+                Stake {stakedTokenSymbolDisplay}
+              </span>
             </div>
             <div className="flex-grow flex justify-end items-center text-white relative">
               {ETF[stakedTokenSymbolDisplay].map((symbol, i) =>
@@ -37,7 +55,12 @@ const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, earnedTo
             20.72%
           </h1>
           <div className="flex justify-center items-center flex-wrap mt-10">
-            <Image src={`/assets/tokens/${earnedToken}.png`} alt="" width="52" height="52" />
+            <Image
+              src={`/assets/tokens/${earnedToken}.png`}
+              alt=""
+              width="52"
+              height="52"
+            />
             <span className="tracking-widest text-xl title-font font-medium text-gray-400 mb-1 ml-3">
               {earnedToken} Earned
             </span>
@@ -45,9 +68,38 @@ const PoolCard: FunctionComponent<IProps> = ({stakedTokenSymbolDisplay, earnedTo
           <h1 className="title-font sm:text-3xl text-2xl font-medium text-blue-900 mb-3 mt-5">
             0.0 {earnedToken}
           </h1>
-          <button className="text-white bg-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg h-10">Harvest</button>
-          <button className="text-white bg-blue-500 mt-10 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg w-full h-16">Approve</button>
+          <button className="text-white bg-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg h-10">
+            Harvest
+          </button>
+          {deposited > 0 ? (
+            <div className="flex justify-between">
+              <button
+                className="text-white bg-blue-500 mt-10 border-0 py-0 px-2 m-0 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg w-full h-16 uppercase"
+                onClick={() => openModal("withdraw")}
+              >
+                Withdraw
+              </button>
+              <button
+                className="text-white bg-blue-500 mt-10 border-0 py-0 px-2 m-0 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg w-full h-16 uppercase"
+                onClick={() => openModal("deposit")}
+              >
+                Deposit
+              </button>
+            </div>
+          ) : (
+            <button
+              className="text-white bg-blue-500 mt-10 border-0 py-0 px-2 m-0 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg w-full h-16 uppercase"
+              onClick={() => openModal("deposit")}
+            >
+              Deposit
+            </button>
+          )}
         </div>
+        <MintRedeemModal
+          closeModal={closeModal}
+          mode={modalMode}
+          cancelButtonRef={cancelButtonRef}
+        />
       </div>
     </>
   );

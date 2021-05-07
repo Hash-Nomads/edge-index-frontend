@@ -19,6 +19,8 @@ import {
 } from "@terra-money/terra.js";
 import { useRecoilValue } from "recoil";
 import AuthStore from "../store/AuthStore";
+import useBlockChain from "../hooks/useBlockChain";
+import Image from "next/image";
 
 type Props = {
   allPosts: Post[];
@@ -27,42 +29,43 @@ type Props = {
 const Index = ({ allPosts }: Props) => {
   const morePosts = allPosts.slice(0);
   const loginUser = useRecoilValue(AuthStore.loginUser);
-  const mk = new MnemonicKey({
-    mnemonic:
-      "used buddy base gym minimum popular harsh tunnel visa flat property rocket found follow salon during isolate leader fade rely grain talk wreck cream",
-  });
+  const { getAnc, getLuna, getMir } = useBlockChain();
+  // const mk = new MnemonicKey({
+  //   mnemonic:
+  //     "used buddy base gym minimum popular harsh tunnel visa flat property rocket found follow salon during isolate leader fade rely grain talk wreck cream",
+  // });
 
-  // connect to soju testnet
-  const terra = new LCDClient({
-    URL: "https://tequila-lcd.terra.dev:80",
-    // URL: "https://3.35.148.111:26657",
-    chainID: "tequila-0004",
-  });
+  // // connect to soju testnet
+  // const terra = new LCDClient({
+  //   URL: "https://tequila-lcd.terra.dev:80",
+  //   // URL: "https://3.35.148.111:26657",
+  //   chainID: "tequila-0004",
+  // });
 
-  const wallet = terra.wallet(loginUser.address);
+  // const wallet = terra.wallet(loginUser.address);
 
-  // create a simple message that moves coin balances
-  const send = new MsgSend(
-    "terra1pdf6wsfmfaeglm0pumv97qkpx34uaf5u3j6ztt",
-    "terra1etl5z8nn4m32t3wsqz8er7pc76qnh00app03v2",
-    { uluna: 100 }
-  );
+  // // create a simple message that moves coin balances
+  // const send = new MsgSend(
+  //   "terra1pdf6wsfmfaeglm0pumv97qkpx34uaf5u3j6ztt",
+  //   "terra1etl5z8nn4m32t3wsqz8er7pc76qnh00app03v2",
+  //   { uluna: 100 }
+  // );
 
-  const handleClick = () => {
-    try {
-      wallet
-        .createAndSignTx({
-          msgs: [send],
-          memo: "test from terra.js!",
-        })
-        .then((tx) => terra.tx.broadcast(tx))
-        .then((result) => {
-          console.log(`TX hash: ${result.txhash}`);
-        });
-    } catch (error) {
-      console.log({ error });
-    }
-  };
+  // const handleClick = () => {
+  //   try {
+  //     wallet
+  //       .createAndSignTx({
+  //         msgs: [send],
+  //         memo: "test from terra.js!",
+  //       })
+  //       .then((tx) => terra.tx.broadcast(tx))
+  //       .then((result) => {
+  //         console.log(`TX hash: ${result.txhash}`);
+  //       });
+  //   } catch (error) {
+  //     console.log({ error });
+  //   }
+  // };
 
   return (
     <Layout>
@@ -71,9 +74,38 @@ const Index = ({ allPosts }: Props) => {
       </Head>
       <Container>
         <Intro />
+        <div className="flex justify-end my-4">
+          <div className="mx-2 flex items-center">
+            <Image
+              src={`/assets/tokens/LUNA.png`}
+              alt="LUNA"
+              width="24"
+              height="24"
+            />
+            <span className="ml-2">{getLuna < 0 ? 0 : getLuna}</span>
+          </div>
+          <div className="mx-2 flex items-center">
+            <Image
+              src={`/assets/tokens/MIR.png`}
+              alt="MIR"
+              width="24"
+              height="24"
+            />{" "}
+            <span className="ml-2">{getMir < 0 ? 0 : getMir}</span>
+          </div>
+          <div className="mx-2 flex items-center">
+            <Image
+              src={`/assets/tokens/ANC.png`}
+              alt="ANC"
+              width="24"
+              height="24"
+            />{" "}
+            <span className="ml-2">{getAnc < 0 ? 0 : getAnc}</span>
+          </div>
+        </div>
         <EdgeIndexTable />
         {/* <button onClick={handleClick}>Fuck</button> */}
-      {/* {morePosts.length > 0 && <Section posts={morePosts} />} */}
+        {/* {morePosts.length > 0 && <Section posts={morePosts} />} */}
       </Container>
     </Layout>
   );
