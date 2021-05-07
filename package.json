@@ -8,8 +8,10 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@anchor-protocol/anchor.js": "^1.0.1",
     "@ant-design/icons": "^4.6.2",
     "@metamask/onboarding": "^1.0.0",
+    "@terra-dev/big-math": "^0.12.1",
     "@terra-money/terra.js": "^1.7.0",
     "antd": "^4.15.4",
     "bignumber.js": "^9.0.1",

@@ -1,7 +1,7 @@
 import Container from "../components/container";
 import Layout from "../components/layout";
-import Header from 'components/stake/header'
-import Pools from 'components/stake/pools'
+import Header from '../components/stake/header'
+import Pools from '../components/stake/pools'
 import Head from "next/head";
 import { CMS_NAME } from "../lib/constants";
 import "antd/dist/antd.css";
