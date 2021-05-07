@@ -16,7 +16,7 @@ const PoolCard: FunctionComponent<IProps> = ({
 }: IProps) => {
   const [modalMode, setModalMode] = useState("");
   const cancelButtonRef = useRef();
-  const [deposited, setDeposited] = useState(10);
+  const [deposited, setDeposited] = useState(0);
 
   function closeModal() {
     setModalMode("");
