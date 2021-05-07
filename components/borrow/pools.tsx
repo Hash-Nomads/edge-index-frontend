@@ -1,17 +1,14 @@
 import PoolCard from './pool-card'
-import { Disclosure } from "@headlessui/react";
 
 const Pools = () => {
   return (
-    <Disclosure>
-      <Disclosure.Button className="py-2">
-        Is team pricing available?
-      </Disclosure.Button>
-      <Disclosure.Panel className="text-gray-500">
-        Yes! You can purchase a license that you can share with your entire
-        team.
-      </Disclosure.Panel>
-    </Disclosure>
+    <div className="flex flex-wrap justify-center mb-24">
+      <PoolCard stakedTokenSymbolDisplay="TECO" stakedTokenSymbols={['LUNA', 'MIR', 'ANC']} earnedToken="TECO" />
+      <PoolCard stakedTokenSymbolDisplay="AWP" stakedTokenSymbols={['wMIR', 'SLV', 'LUNA', 'ETC']} earnedToken="AWP"  />
+      <PoolCard stakedTokenSymbolDisplay="SAVE" stakedTokenSymbols={['UST', 'wMIR', 'SLV']} earnedToken="SAVE"  />
+      <PoolCard stakedTokenSymbolDisplay="IND" stakedTokenSymbols={['QQQ', 'SPY', 'UST']} earnedToken="IND"  />
+      <PoolCard stakedTokenSymbolDisplay="RISE" stakedTokenSymbols={['mCOIN', 'TSLA', 'ABNB']} earnedToken="RISE" />
+    </div>
   )
 }
 
