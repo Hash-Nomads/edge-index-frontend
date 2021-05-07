@@ -2,12 +2,12 @@ import PoolCard from './pool-card'
 
 const Pools = () => {
   return (
-    <div className="flex flex-wrap justify-center -m-4">
-      <PoolCard stakedTokenSymbolDisplay="ETF" stakedTokenSymbols={['LUNA', 'MIR', 'ANC']} earnedToken="ETF" />
-      <PoolCard stakedTokenSymbolDisplay="ETF" stakedTokenSymbols={['LUNA', 'MIR', 'ANC', 'BNB']} earnedToken="ETF"  />
-      <PoolCard stakedTokenSymbolDisplay="ETF" stakedTokenSymbols={['LUNA', 'ANC']} earnedToken="ETF"  />
-      <PoolCard stakedTokenSymbolDisplay="BNB" stakedTokenSymbols={['BNB']} earnedToken="ETF"  />
-      <PoolCard stakedTokenSymbolDisplay="ETH" stakedTokenSymbols={['ETH']} earnedToken="ETF" />
+    <div className="flex flex-wrap justify-center mb-24">
+      <PoolCard stakedTokenSymbolDisplay="TECO" stakedTokenSymbols={['LUNA', 'MIR', 'ANC']} earnedToken="TECO" />
+      <PoolCard stakedTokenSymbolDisplay="AWP" stakedTokenSymbols={['wMIR', 'SLV', 'LUNA', 'ETC']} earnedToken="AWP"  />
+      <PoolCard stakedTokenSymbolDisplay="SAVE" stakedTokenSymbols={['UST', 'wMIR', 'SLV']} earnedToken="SAVE"  />
+      <PoolCard stakedTokenSymbolDisplay="IND" stakedTokenSymbols={['QQQ', 'SPY', 'UST']} earnedToken="IND"  />
+      <PoolCard stakedTokenSymbolDisplay="RISE" stakedTokenSymbols={['mCOIN', 'TSLA', 'ABNB']} earnedToken="RISE" />
     </div>
   )
 }
