@@ -9,6 +9,9 @@ import Image from "next/image";
 import { ReactNode } from "../../../../../../Library/Caches/typescript/4.3/node_modules/@types/react";
 import { Button } from "antd/lib/radio";
 import AllocateTable from "./../components/allocateTable";
+import MintRedeemModal from "../components/mintRedeemModal";
+import { Fragment, useRef, useEffect, useState } from "react";
+
 const FlexCenter = ({
   children,
   className,
@@ -29,6 +32,18 @@ const InfoColum = ({ top, down }: { top: string; down: string }) => {
 };
 
 const TerraEco = () => {
+  const [open, setOpen] = useState(false);
+  const [modalMode, setModalMode] = useState("");
+  const cancelButtonRef = useRef();
+
+  function closeModal() {
+    setModalMode("");
+  }
+
+  function openModal(val: string) {
+    setModalMode(val);
+  }
+
   return (
     <Layout>
       <Head>
@@ -57,18 +72,18 @@ const TerraEco = () => {
 
             <FlexCenter>
               <div
-                className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 px-6 py-2  rounded-lg shadow-lg  text-white cursor-pointer mr-2"
-                style={{ width: "207px" }}
+                className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 px-6 py-2  rounded-lg shadow-lg  text-white cursor-pointer mr-2 flex justify-center"
+                style={{ width: "140px" }}
+                onClick={() => openModal("Mint token")}
               >
-                <p className="font-bold p-0 m-0">Buy & Sell</p>
-                <p className="p-0 m-0">Instant swap</p>
+                <p className="font-bold p-0 m-0">Mint Token</p>
               </div>
               <div
-                className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 px-6 py-2  rounded-lg shadow-lg text-white cursor-pointer "
-                style={{ width: "207px" }}
+                className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 px-6 py-2  rounded-lg shadow-lg text-white cursor-pointer flex justify-center"
+                style={{ width: "140px" }}
+                onClick={() => openModal("Redeem")}
               >
-                <p className="font-bold p-0 m-0">Bake your Pie</p>
-                <p className="p-0 m-0">Wait and save 97% gas</p>
+                <p className="font-bold p-0 m-0">Redeem</p>
               </div>
             </FlexCenter>
           </FlexCenter>
@@ -84,6 +99,11 @@ const TerraEco = () => {
           <AllocateTable />
         </div>
       </Container>
+      <MintRedeemModal
+        closeModal={closeModal}
+        mode={modalMode}
+        cancelButtonRef={cancelButtonRef}
+      />
     </Layout>
   );
 };

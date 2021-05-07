@@ -34,12 +34,12 @@ const Index = ({ allPosts }: Props) => {
 
   // connect to soju testnet
   const terra = new LCDClient({
-    // URL: "http://tequila-lcd.terra.dev:80",
-    URL: "http://3.35.148.111:26657",
+    URL: "https://tequila-lcd.terra.dev:80",
+    // URL: "https://3.35.148.111:26657",
     chainID: "tequila-0004",
   });
 
-  const wallet = terra.wallet(mk);
+  const wallet = terra.wallet(loginUser.address);
 
   // create a simple message that moves coin balances
   const send = new MsgSend(
