@@ -5,8 +5,7 @@ import Pools from 'components/stake/pools'
 import Head from "next/head";
 import { CMS_NAME } from "../lib/constants";
 import "antd/dist/antd.css";
-import { RecoilRoot } from 'recoil'
-
+import { RecoilRoot } from "recoil";
 
 const Stake = () => {
   return (
