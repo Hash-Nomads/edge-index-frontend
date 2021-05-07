@@ -1,6 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useRef, useEffect, useState } from "react";
 import { Input } from "antd";
+import useBlockChain from "../hooks/useBlockChain";
+import { setConstantValue } from "typescript";
 
 export default function MintRedeemModal({
   closeModal,
@@ -12,6 +14,9 @@ export default function MintRedeemModal({
   cancelButtonRef: any;
 }) {
   const open = mode.length > 0;
+  const { mint, getAnc, getLuna, getMir } = useBlockChain();
+  console.log({ getAnc, getLuna, getMir });
+  const [value, setValue] = useState<string>();
   return (
     <>
       <Transition show={open} as={Fragment}>
@@ -62,7 +67,10 @@ export default function MintRedeemModal({
                   {mode}
                 </Dialog.Title>
                 <div className="my-4">
-                  <Input placeholder="0" />
+                  <Input
+                    placeholder="0"
+                    onChange={(e) => setValue(e.target.value)}
+                  />
                 </div>
 
                 <div className="flex justify-between">
@@ -77,7 +85,9 @@ export default function MintRedeemModal({
                   <button
                     type="button"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={closeModal}
+                    onClick={() => {
+                      mint(parseFloat(value));
+                    }}
                     style={{ width: "150px" }}
                   >
                     {mode.split(" ")[0]}
