@@ -29,43 +29,10 @@ type Props = {
 const Index = ({ allPosts }: Props) => {
   const morePosts = allPosts.slice(0);
   const loginUser = useRecoilValue(AuthStore.loginUser);
-  const { getAnc, getLuna, getMir } = useBlockChain();
-  // const mk = new MnemonicKey({
-  //   mnemonic:
-  //     "used buddy base gym minimum popular harsh tunnel visa flat property rocket found follow salon during isolate leader fade rely grain talk wreck cream",
-  // });
-
-  // // connect to soju testnet
-  // const terra = new LCDClient({
-  //   URL: "https://tequila-lcd.terra.dev:80",
-  //   // URL: "https://3.35.148.111:26657",
-  //   chainID: "tequila-0004",
-  // });
-
-  // const wallet = terra.wallet(loginUser.address);
-
-  // // create a simple message that moves coin balances
-  // const send = new MsgSend(
-  //   "terra1pdf6wsfmfaeglm0pumv97qkpx34uaf5u3j6ztt",
-  //   "terra1etl5z8nn4m32t3wsqz8er7pc76qnh00app03v2",
-  //   { uluna: 100 }
-  // );
-
-  // const handleClick = () => {
-  //   try {
-  //     wallet
-  //       .createAndSignTx({
-  //         msgs: [send],
-  //         memo: "test from terra.js!",
-  //       })
-  //       .then((tx) => terra.tx.broadcast(tx))
-  //       .then((result) => {
-  //         console.log(`TX hash: ${result.txhash}`);
-  //       });
-  //   } catch (error) {
-  //     console.log({ error });
-  //   }
-  // };
+  const { getAnc, getLuna, getMir, user } = useBlockChain();
+  const luna = getLuna + user.luna
+  const anc = getAnc + user.anc
+  const mir = getMir + user.mir
 
   return (
     <Layout>
@@ -82,7 +49,7 @@ const Index = ({ allPosts }: Props) => {
               width="24"
               height="24"
             />
-            <span className="ml-2">{getLuna < 0 ? 0 : getLuna}</span>
+            <span className="ml-2">{luna < 0 ? 0 : luna}</span>
           </div>
           <div className="mx-2 flex items-center">
             <Image
@@ -91,7 +58,7 @@ const Index = ({ allPosts }: Props) => {
               width="24"
               height="24"
             />{" "}
-            <span className="ml-2">{getMir < 0 ? 0 : getMir}</span>
+            <span className="ml-2">{mir < 0 ? 0 : mir}</span>
           </div>
           <div className="mx-2 flex items-center">
             <Image
@@ -100,7 +67,7 @@ const Index = ({ allPosts }: Props) => {
               width="24"
               height="24"
             />{" "}
-            <span className="ml-2">{getAnc < 0 ? 0 : getAnc}</span>
+            <span className="ml-2">{anc < 0 ? 0 : anc}</span>
           </div>
         </div>
         <EdgeIndexTable />

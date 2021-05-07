@@ -3,16 +3,15 @@ import Image from "next/image";
 import { Fragment, useRef, useEffect, useState } from "react";
 import MintRedeemModal from "./../../components/mintRedeemModal";
 import useBlockChain from "../../hooks/useBlockChain";
+import { ETF } from "lib/constants";
 
 type IProps = {
   stakedTokenSymbolDisplay: string;
-  stakedTokenSymbols: Array<string>;
   earnedToken: string;
 };
 
 const PoolCard: FunctionComponent<IProps> = ({
   stakedTokenSymbolDisplay,
-  stakedTokenSymbols,
   earnedToken,
 }: IProps) => {
   const [modalMode, setModalMode] = useState("");
@@ -42,7 +41,7 @@ const PoolCard: FunctionComponent<IProps> = ({
               </span>
             </div>
             <div className="flex-grow flex justify-end items-center text-white relative">
-              {stakedTokenSymbols.map((symbol, i) => (
+              {ETF[stakedTokenSymbolDisplay].map((symbol, i) => (
                 <div
                   key={symbol}
                   style={{ right: `${i * 2}rem` }}
