@@ -4,12 +4,13 @@ import "antd/dist/antd.css";
 
 import { Table, Tag, Space } from "antd";
 import { Button, Dropdown } from "antd";
+import { useRouter } from "next/router";
 
 const columns = [
   {
-    title: "Index",
-    dataIndex: "index",
-    key: "index",
+    title: "ETFs",
+    dataIndex: "etf",
+    key: "etf",
   },
   {
     title: "Assets",
@@ -30,7 +31,7 @@ const columns = [
     render: (change: string) => <p className="text-green-400">{change}</p>,
   },
   {
-    title: "Index Price",
+    title: "ETF Price",
     key: "price",
     dataIndex: "price",
   },
@@ -48,14 +49,14 @@ const columns = [
 
 const data = [
   {
-    index: "Terra Ecosystem ETF",
+    etf: "Terra Ecosystem ETF",
     assets: ["LUNA", "ANC", "MIR"],
     change: "+ 1.20",
     price: "7.32",
     buy: "BUY",
   },
   {
-    index: "All weather pool ETF",
+    etf: "All weather pool ETF",
     assets: [
       "mIAU",
       "mSLV",
@@ -75,21 +76,21 @@ const data = [
     buy: "BUY",
   },
   {
-    index: "Savings Pool ETF",
+    etf: "Savings Pool ETF",
     assets: ["aUST", "mIAU", "mSLV"],
     change: "+ 0.08",
     price: "1.18",
     buy: "BUY",
   },
   {
-    index: "Index&ETF Pool ETF",
+    etf: "Index&ETF Pool ETF",
     assets: ["mQQQ", "mSPY", "aUST"],
     change: "+ 1.48",
     price: "11.24",
     buy: "BUY",
   },
   {
-    index: "New Rise Pool ETF ",
+    etf: "New Rise Pool ETF ",
     assets: ["mCOIN", "mTSLA", "mABNB"],
     change: "+ 9.85",
     price: "30.20",
@@ -98,6 +99,20 @@ const data = [
 ];
 
 const IndexTable = () => {
-  return <Table columns={columns} dataSource={data} />;
+  const router = useRouter();
+
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      onRow={(record, rowIndex) => {
+        return {
+          onClick: (event) => router.push(`/terra-eco`), // click row
+        };
+      }}
+      pagination={false}
+      rowKey={(record, index) => index}
+    />
+  );
 };
 export default IndexTable;
