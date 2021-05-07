@@ -15,11 +15,23 @@ export default function MintRedeemModal({
   cancelButtonRef: any;
 }) {
   const open = mode.length > 0;
-  const { mint, getAnc, getLuna, getMir, redeem, user } = useBlockChain();
+  const {
+    mint,
+    getAnc,
+    getLuna,
+    getMir,
+    redeem,
+    user,
+    stake,
+  } = useBlockChain();
   console.log({ getAnc, getLuna, getMir });
   const [value, setValue] = useState<string>();
-  const mapped = { Redeem: redeem, Mint: mint };
-  console.log(user);
+  const mapped = { Redeem: redeem, Mint: mint, deposit: stake };
+  const message = {
+    Redeem: `Max ${user.etfAmount} tecoETF`,
+    Mint: `Max ${user.ust} UST`,
+    deposit: `Max ${user.etfAmount} tecoETF`,
+  };
   return (
     <>
       <Transition show={open} as={Fragment}>
@@ -69,11 +81,7 @@ export default function MintRedeemModal({
                 >
                   {mode}
                 </Dialog.Title>
-                <div className="m-2">
-                  {mode === "Redeem"
-                    ? `Max ${user.etfAmount} tecoETF`
-                    : `Max ${user.ust} UST`}
-                </div>
+                <div className="m-2">{message[mode]}</div>
                 <div className="my-4">
                   <Input
                     placeholder="0"

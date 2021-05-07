@@ -2,7 +2,8 @@ import { FunctionComponent } from "react";
 import Image from "next/image";
 import { Fragment, useRef, useEffect, useState } from "react";
 import MintRedeemModal from "./../../components/mintRedeemModal";
-import { ETF } from 'lib/constants';
+import useBlockChain from "../../hooks/useBlockChain";
+import { ETF } from "lib/constants";
 
 type IProps = {
   stakedTokenSymbolDisplay: string;
@@ -15,7 +16,7 @@ const PoolCard: FunctionComponent<IProps> = ({
 }: IProps) => {
   const [modalMode, setModalMode] = useState("");
   const cancelButtonRef = useRef();
-  const [deposited, setDeposited] = useState(0);
+  const { userStake } = useBlockChain();
 
   function closeModal() {
     setModalMode("");
@@ -24,6 +25,7 @@ const PoolCard: FunctionComponent<IProps> = ({
   function openModal(val: "deposit" | "withdraw") {
     setModalMode(val);
   }
+  console.log("fweewfwwfe", userStake);
 
   return (
     <>
@@ -39,11 +41,20 @@ const PoolCard: FunctionComponent<IProps> = ({
               </span>
             </div>
             <div className="flex-grow flex justify-end items-center text-white relative">
-              {ETF[stakedTokenSymbolDisplay].map((symbol, i) =>
-                <div key={symbol} style={{right: `${i*2}rem`}} className="absolute">
-                  <Image src={`/assets/tokens/${symbol}.png`} alt="" width="52" height="52" />
+              {ETF[stakedTokenSymbolDisplay].map((symbol, i) => (
+                <div
+                  key={symbol}
+                  style={{ right: `${i * 2}rem` }}
+                  className="absolute"
+                >
+                  <Image
+                    src={`/assets/tokens/${symbol}.png`}
+                    alt=""
+                    width="52"
+                    height="52"
+                  />
                 </div>
-              )}
+              ))}
             </div>
           </div>
         </div>
@@ -71,7 +82,7 @@ const PoolCard: FunctionComponent<IProps> = ({
           <button className="text-white bg-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg h-10">
             Harvest
           </button>
-          {deposited > 0 ? (
+          {userStake > 0 ? (
             <div className="flex justify-between">
               <button
                 className="text-white bg-blue-500 mt-10 border-0 py-0 px-2 m-0 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg w-full h-16 uppercase"
