@@ -96,26 +96,28 @@ const Pools = () => {
   };
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      onRow={r => {
-        return {
-          onClick: (event) => {
-            const newExp: any = expKeys.filter(i => i !== r.key);
-            setExpKeys(newExp);
+    <div className="mb-24">
+      <Table
+        columns={columns}
+        dataSource={data}
+        onRow={r => {
+          return {
+            onClick: (event) => {
+              const newExp: any = expKeys.filter(i => i !== r.key);
+              setExpKeys(newExp);
+            }
           }
-        }
-      }}
-      pagination={false}
-      onExpand={(b, r) => {
-        const newExp: any = b ? [...expKeys, r.key] : expKeys.filter(i => i !== r.key);
-        setExpKeys(newExp);
-      }}
-      expandedRowRender={record => <ExpandedRow collecteral={record.token} />}
-      rowKey={record => record.key}
-      scroll={{ x: true }}
-    />
+        }}
+        pagination={false}
+        onExpand={(b, r) => {
+          const newExp: any = b ? [...expKeys, r.key] : expKeys.filter(i => i !== r.key);
+          setExpKeys(newExp);
+        }}
+        expandedRowRender={record => <ExpandedRow collecteral={record.token} />}
+        rowKey={record => record.key}
+        scroll={{ x: true }}
+      />
+    </div>
   );
 };
 
