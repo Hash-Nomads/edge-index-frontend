@@ -65,11 +65,12 @@ const useBlockChain = () => {
   const ancAlloc = 0.25;
 
   const getLuna =
-    (user.etfAmount * lunaAlloc * lunaRate * reserveLuna) / supply;
+    (user.etfAmount * lunaAlloc * lunaRate * reserveLuna) /
+    (supply === 0 ? -1 : supply);
 
-  const getAnc = (user.etfAmount * reserveAnc) / supply;
+  const getAnc = (user.etfAmount * reserveAnc) / (supply === 0 ? -1 : supply);
 
-  const getMir = (user.etfAmount * reserveMir) / supply;
+  const getMir = (user.etfAmount * reserveMir) / (supply === 0 ? -1 : supply);
 
   const mint = (amount: number) => {
     const l = (lunaAlloc * amount) / lunaRate;
@@ -103,6 +104,16 @@ const useBlockChain = () => {
       };
     });
     setUserStake(amount);
+  };
+
+  const redeem = (amount: number) => {
+    if (user.etfAmount - amount < 0) throw Error("not enough money");
+    setUser((info) => {
+      return {
+        ...info,
+        etfAmount: info.etfAmount - amount,
+      };
+    });
   };
 
   const ratio = 0.5;
