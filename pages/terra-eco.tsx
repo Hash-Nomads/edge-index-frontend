@@ -37,7 +37,7 @@ const TerraEco = () => {
       <Container>
         <div className="pl-8">
           <FlexCenter className="justify-between">
-            <div>
+            <FlexCenter>
               <div className="w-20 h-20">
                 <Image
                   src="/assets/tokens/ETF.png"
@@ -53,7 +53,7 @@ const TerraEco = () => {
                   <p className="text-green-400 px-4">▲ 1.20 %</p>
                 </FlexCenter>
               </div>
-            </div>
+            </FlexCenter>
 
             <FlexCenter>
               <div
