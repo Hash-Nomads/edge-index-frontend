@@ -1,6 +1,6 @@
 export const EXAMPLE_PATH = 'blog-starter-typescript'
 export const CMS_NAME = 'Markdown'
-export const NAV_PATH = ['Home', 'Mint', 'Stake', 'Borrow']
+export const NAV_PATH = ['Mint', 'Stake', 'Borrow', 'Governance']
 export const ETF = {
   'TECO': ['LUNA', 'MIR', 'ANC'],
   'AWP': ['wMIR', 'SLV', 'LUNA', 'ETC'],
