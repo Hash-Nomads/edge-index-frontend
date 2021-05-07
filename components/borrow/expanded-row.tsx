@@ -27,6 +27,7 @@ type IProps = {
 
 const ExpandedRow: FunctionComponent<IProps> = ({ collecteral }: IProps) => {
   const [token, setToken] = useState("LUNA");
+  const [inputValue, setInputValue] = useState(0);
   return (
     <>
       <div className="bg-gradient-to-l from-blue-900 to-purple-800 bg-opacity-75 px-8 py-5 overflow-hidden relative flex-col">
@@ -71,6 +72,7 @@ const ExpandedRow: FunctionComponent<IProps> = ({ collecteral }: IProps) => {
           <Input
             addonBefore={selectBefore(collecteral, setToken)}
             defaultValue="0"
+            onChange={(e) => setInputValue(parseInt(e.target.value))}
           />
         </div>
         <div className="flex justify-center items-center flex-wrap mt-10">
@@ -85,7 +87,7 @@ const ExpandedRow: FunctionComponent<IProps> = ({ collecteral }: IProps) => {
           </span>
         </div>
         <h1 className="title-font sm:text-3xl text-2xl font-medium text-blue-900 mb-3 mt-5">
-          0.0 {token}
+          {(inputValue * 2.453 > 0 ? inputValue * 2.453 : 0).toFixed(2)} {token}
         </h1>
         <button className="text-white bg-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg h-10">
           Borrow
