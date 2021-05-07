@@ -74,7 +74,7 @@ const TerraEco = () => {
               <div
                 className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 px-6 py-2  rounded-lg shadow-lg  text-white cursor-pointer mr-2 flex justify-center"
                 style={{ width: "140px" }}
-                onClick={() => openModal("Mint token")}
+                onClick={() => openModal("Mint")}
               >
                 <p className="font-bold p-0 m-0">Mint Token</p>
               </div>

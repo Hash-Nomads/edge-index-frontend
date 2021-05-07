@@ -3,6 +3,7 @@ import { Fragment, useRef, useEffect, useState } from "react";
 import { Input } from "antd";
 import useBlockChain from "../hooks/useBlockChain";
 import { setConstantValue } from "typescript";
+import { userInfo } from "node:os";
 
 export default function MintRedeemModal({
   closeModal,
@@ -14,9 +15,11 @@ export default function MintRedeemModal({
   cancelButtonRef: any;
 }) {
   const open = mode.length > 0;
-  const { mint, getAnc, getLuna, getMir } = useBlockChain();
+  const { mint, getAnc, getLuna, getMir, redeem, user } = useBlockChain();
   console.log({ getAnc, getLuna, getMir });
   const [value, setValue] = useState<string>();
+  const mapped = { Redeem: redeem, Mint: mint };
+  console.log(user);
   return (
     <>
       <Transition show={open} as={Fragment}>
@@ -66,6 +69,11 @@ export default function MintRedeemModal({
                 >
                   {mode}
                 </Dialog.Title>
+                <div className="m-2">
+                  {mode === "Redeem"
+                    ? `Max ${user.etfAmount} tecoETF`
+                    : `Max ${user.ust} UST`}
+                </div>
                 <div className="my-4">
                   <Input
                     placeholder="0"
@@ -86,7 +94,7 @@ export default function MintRedeemModal({
                     type="button"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     onClick={() => {
-                      mint(parseFloat(value));
+                      mapped[mode](parseFloat(value));
                     }}
                     style={{ width: "150px" }}
                   >

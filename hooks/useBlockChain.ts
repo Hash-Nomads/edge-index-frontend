@@ -12,6 +12,7 @@ type EtfInfo = {
 
 type UserInfo = {
   etfAmount: number;
+  ust: number;
 };
 function useLocalStorage(key, initialValue) {
   // State to store our value
@@ -50,6 +51,10 @@ function useLocalStorage(key, initialValue) {
 const useBlockChain = () => {
   const [user, setUser] = useLocalStorage("user", {
     etfAmount: 0,
+    ust: 10000,
+    luna: 0,
+    anc: 0,
+    mir: 0,
   });
   const [userStake, setUserStake] = useLocalStorage("userStake", 0);
   const [reserveLuna, setReserveLuna] = useLocalStorage("reserevLuna", 0);
@@ -58,15 +63,18 @@ const useBlockChain = () => {
   const [supply, setSupply] = useLocalStorage("supply", 0);
 
   const lunaAlloc = 0.5;
-  const lunaRate = 16.841435;
-  const ancRate = 0.062401;
-  const mirRate = 1.316558;
+  const lunaRate = 62.31306;
+  const lunaTo = 16.841435;
+  const ancTo = 16.025384;
+  const mirTo = 1.316558;
+  const ancRate = 15.840235;
+  const mirRate = 1.324503;
   const mirAlloc = 0.25;
   const ancAlloc = 0.25;
 
-  const getLuna =
-    (user.etfAmount * lunaAlloc * lunaRate * reserveLuna) /
-    (supply === 0 ? -1 : supply);
+  console.log({ supply, a: user.etfAmount });
+  console.log({ reserveMir, reserveAnc, reserveLuna });
+  const getLuna = (user.etfAmount * reserveLuna) / (supply === 0 ? -1 : supply);
 
   const getAnc = (user.etfAmount * reserveAnc) / (supply === 0 ? -1 : supply);
 
@@ -87,7 +95,11 @@ const useBlockChain = () => {
     console.log({ reserveMir, reserveAnc, reserveLuna });
     console.log(supply);
     setUser((info) => {
-      return { ...info, etfAmount: info.etfAmount + mint };
+      return {
+        ...info,
+        etfAmount: info.etfAmount + mint,
+        ust: info.ust - amount,
+      };
     });
     setSupply(supply + mint);
     setReserveAnc(reserveAnc + a);
@@ -112,8 +124,15 @@ const useBlockChain = () => {
       return {
         ...info,
         etfAmount: info.etfAmount - amount,
+        luna: (amount / supply) * reserveLuna,
+        anc: (amount / supply) * reserveAnc,
+        mir: (amount / supply) * reserveMir,
       };
     });
+    setReserveLuna(reserveLuna - (amount / supply) * reserveLuna);
+    setReserveAnc(reserveAnc - (amount / supply) * reserveAnc);
+    setReserveMir(reserveMir - (amount / supply) * reserveMir);
+    setSupply(supply - amount);
   };
 
   const ratio = 0.5;
@@ -123,6 +142,7 @@ const useBlockChain = () => {
   return {
     user,
     userStake,
+    redeem,
     stake,
     mint,
     getAnc,
